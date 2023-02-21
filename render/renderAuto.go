@@ -6,26 +6,42 @@ import (
 	"net/http"
 	"path/filepath"
 	"text/template"
+
+	"github.com/rumentsolov/GoLangWeb/config"
 )
 
 //! AUTOMATIC TEMPLATE CACH SYSTEM
 //* its not necessary to track all my files and include them for rendering all the time
 //? avoiding loading the entire template cache everytime we display the page in website => this is problem due to the information is parsing all the time from the hard drive to the screen every time
 
+var app *config.AppConfig
+
+// NewTemplate sets the config for the template package
+func NewTemplate(a *config.AppConfig) {
+	app = a
+}
+
 // Renders the templates using html/template
 func RenderTemplalteA(w http.ResponseWriter, tmpl string) {
-	//create template cache variable
-	tc, err := CreateTemplateCacheA()
-	ErrorCheck(err)
+	//get the template chache from the app config
+
+	tc = app.TemplateCache
+
+	/*
+		code bellow is useless due we use info from the AppConfig
+		//create template cache variable
+		tc, err := CreateTemplateCacheA()
+		ErrorCheck(err)
+	*/
 
 	//get requested template from cach
 	t, ok := tc[tmpl] // t is the value of the template I want to render, ok is true of false
 	if !ok {
-		log.Fatal(err) // if I dont have the template I want to render just DIE MOTHERFCKER ^^
+		log.Fatal("Cound not get template from template cache !!!") // if I dont have the template I want to render just DIE MOTHERFCKER ^^
 	}
 
-	buf := new(bytes.Buffer)  // this arbiter step that usually doesn needed. I make buffer that hold bytes and trying to execute the buffer directly and then to write it out. Final grinf error checking!
-	err = t.Execute(buf, nil) // this gives me clear indication of if I there is something wrong with my valye tooked from the map
+	buf := new(bytes.Buffer)   // this arbiter step that usually doesn needed. I make buffer that hold bytes and trying to execute the buffer directly and then to write it out. Final grinf error checking!
+	err := t.Execute(buf, nil) // this gives me clear indication of if I there is something wrong with my valye tooked from the map /the old way we remove the assign operator :/
 	ErrorCheck(err)
 
 	log.Println("Beggining AUTO rendering!")

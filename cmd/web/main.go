@@ -17,6 +17,7 @@ var portNumber = ":8080"
 
 func main() {
 	var app config.AppConfig
+	// get the template cache from app config
 
 	tc, err := render.CreateTemplateCacheA()
 	if err != nil {
@@ -24,6 +25,10 @@ func main() {
 	}
 
 	app.TemplateCache = tc
+
+
+	render.NewTemplate(&app) // this gives our application access to the the app config
+
 
 	http.HandleFunc("/", handlers.Home)
 	http.HandleFunc("/about", handlers.About)
