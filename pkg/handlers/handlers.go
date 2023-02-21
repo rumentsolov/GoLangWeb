@@ -47,7 +47,7 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) { // (m *Repos
 	// perform some logic
 
 	//send the data to the template
-	render.RenderTemplate(w, "home.page.tmpl")
+	render.RenderTemplate(w, "home.page.tmpl", &TemplateData{})
 }
 
 // ? About is the about page handler
@@ -55,6 +55,6 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	// perform some logic
 
 	//send the data to the template
-	render.RenderTemplate(w, "about.page.tmpl")
+	render.RenderTemplate(w, "about.page.tmpl", &TemplateData{})
 
 }

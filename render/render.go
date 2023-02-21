@@ -33,12 +33,6 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td handlers.TemplateData
 	} else {
 		tc, _ = CreateTemplateCache()
 	}
-	/*
-		code bellow is useless due we use info from the AppConfig
-		//create template cache variable
-		tc, err := CreateTemplateCache()
-		ErrorCheck(err)
-	*/
 
 	//get requested template from cach
 	t, ok := tc[tmpl] // t is the value of the template I want to render, ok is true of false
