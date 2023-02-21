@@ -1,0 +1,4 @@
+
+found packages render (errRender.go) and renderAuto (renderAuto.go) in /media/rts/SHARED/GoLangWeb/rendergo list
+
+this should be problem
