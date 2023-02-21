@@ -8,12 +8,14 @@ import (
 	"text/template"
 
 	"github.com/rumentsolov/GoLangWeb/config"
-	"github.com/rumentsolov/GoLangWeb/pkg/handlers"
+	"github.com/rumentsolov/GoLangWeb/models"
 )
 
 //! AUTOMATIC TEMPLATE CACH SYSTEM
 //* its not necessary to track all my files and include them for rendering all the time
 //? avoiding loading the entire template cache everytime we display the page in website => this is problem due to the information is parsing all the time from the hard drive to the screen every time
+
+var functions = template.FuncMap{}
 
 var app *config.AppConfig
 
@@ -22,8 +24,12 @@ func NewTemplate(a *config.AppConfig) {
 	app = a
 }
 
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+
 // Renders the templates using html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string, td handlers.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	// if I am in development mode dont use template cash instead build by requesting info from ssd it in every request
 	var tc map[string]*template.Template
 
@@ -40,10 +46,16 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td handlers.TemplateData
 		log.Fatal("Cound not get template from template cache !!!") // if I dont have the template I want to render just DIE MOTHERFCKER ^^
 	}
 
-	buf := new(bytes.Buffer)   // this arbiter step that usually doesn needed. I make buffer that hold bytes and trying to execute the buffer directly and then to write it out. Final grinf error checking!
+	buf := new(bytes.Buffer) // this arbiter step that usually doesn needed. I make buffer that hold bytes and trying to execute the buffer directly and then to write it out. Final grinf error checking!
 
-	err := t.Execute(buf, nil) // this gives me clear indication of if I there is something wrong with my valye tooked from the map /the old way we remove the assign operator :/
-	ErrorCheck(err)
+	td = AddDefaultData(td)
+
+	_ = t.Execute(buf, td) // this gives me clear indication of if I there is something wrong with my valye tooked from the map /the old way we remove the assign operator :/
+
+	_, err := buf.WriteTo(w)
+	if err != nil {
+		log.Println("error writing template to browser", err)
+	}
 
 	log.Println("Beggining AUTO rendering!")
 	//renderer template

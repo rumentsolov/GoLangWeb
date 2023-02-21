@@ -4,20 +4,9 @@ import (
 	"net/http"
 
 	"github.com/rumentsolov/GoLangWeb/config"
+	"github.com/rumentsolov/GoLangWeb/models"
 	"github.com/rumentsolov/GoLangWeb/render"
 )
-
-// TemplateData is created holds data sent from handlers to templates => to pass additional data to the be rendered with the template
-type TemplateData struct {
-	StringMap map[string]string
-	IntMap    map[string]int
-	FloatMap  map[string]float32
-	Data      map[string]interface{}
-	CSRFToken string
-	Flash     string
-	Warning   string
-	Error     string
-}
 
 // we use reposatory patthern
 
@@ -47,14 +36,16 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) { // (m *Repos
 	// perform some logic
 
 	//send the data to the template
-	render.RenderTemplate(w, "home.page.tmpl", &TemplateData{})
+	render.RenderTemplate(w, "home.page.tmpl", &models.TemplateData{})
 }
 
 // ? About is the about page handler
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	// perform some logic
-
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hello, again"
+	
 	//send the data to the template
-	render.RenderTemplate(w, "about.page.tmpl", &TemplateData{})
+	render.RenderTemplate(w, "about.page.tmpl", &models.TemplateData{StringMap: stringMap,})
 
 }
