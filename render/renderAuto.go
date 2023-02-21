@@ -9,6 +9,7 @@ import (
 )
 
 //! AUTOMATIC TEMPLATE CACH SYSTEM
+//* its not necessary to track all my files and include them for rendering all the time
 
 // Renders the templates using html/template
 func RenderTemplalteA(w http.ResponseWriter, tmpl string) {
@@ -45,7 +46,7 @@ func createTemplateCach() (map[string]*template.Template, error) {
 	// range trough all the files ending with .page.tmpl
 	for _, page := range pages {
 		// to extract the name of the template
-		name := filepath.Base(page)
+		name := filepath.Base(page) // strips the path from the filename
 		ts, err := template.New(name).ParseFiles(page)
 		ErrorCheck(err)
 		// now when we did that we have to look for any layouts in our directories
@@ -56,8 +57,7 @@ func createTemplateCach() (map[string]*template.Template, error) {
 			ts, err = ts.ParseGlob("./templates/*layout.tmpl") // ParseGlob parses the template definitions in the files identified by the pattern and associates the resulting templates with ts.
 			ErrorCheck(err)
 		}
-
-		myCache[name] = ts
+		myCache[name] = ts // adding to the map
 	}
 
 	return myCache, nil
