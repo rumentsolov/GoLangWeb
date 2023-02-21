@@ -22,7 +22,7 @@ func RenderTemplalteM(w http.ResponseWriter, t string) {
 	if !inMap {
 		// need to create the template
 		log.Println("creating template& adding to cache")
-		err = createTemplateCache(t)
+		err = CreateTemplateCacheM(t)
 		ErrorCheck(err)
 	} else {
 		// we have template in the cach
@@ -34,7 +34,7 @@ func RenderTemplalteM(w http.ResponseWriter, t string) {
 	ErrorCheck(err)
 }
 
-func createTemplateCache(t string) error {
+func CreateTemplateCacheM(t string) error {
 	templates := []string{
 		fmt.Sprintf("./templates/%s", t),
 		"./templates/base.layout.tmpl", //! add one entry for any template file I create

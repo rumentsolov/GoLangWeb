@@ -10,11 +10,12 @@ import (
 
 //! AUTOMATIC TEMPLATE CACH SYSTEM
 //* its not necessary to track all my files and include them for rendering all the time
+//? avoiding loading the entire template cache everytime we display the page in website => this is problem due to the information is parsing all the time from the hard drive to the screen every time
 
 // Renders the templates using html/template
 func RenderTemplalteA(w http.ResponseWriter, tmpl string) {
 	//create template cache variable
-	tc, err := createTemplateCach()
+	tc, err := CreateTemplateCacheA()
 	ErrorCheck(err)
 
 	//get requested template from cach
@@ -33,7 +34,7 @@ func RenderTemplalteA(w http.ResponseWriter, tmpl string) {
 	ErrorCheck(err)
 }
 
-func createTemplateCach() (map[string]*template.Template, error) {
+func CreateTemplateCacheA() (map[string]*template.Template, error) {
 
 	//myCache := make(map[string]*template.Template)
 	myCache := map[string]*template.Template{} // exactly the same as bellow statement
