@@ -1,9 +1,6 @@
 package main
 
-//# prints Hello Web in http://localhost:8080/
-
 import (
-	//"errors"
 	"fmt"
 	"log"
 	"net/http"
@@ -35,10 +32,19 @@ func main() {
 	render.NewTemplate(&app) // this gives our application access to the the app config
 
 	// .Repo. because I have reciever from type REPO
-	http.HandleFunc("/", handlers.Repo.Home)
-	http.HandleFunc("/about", handlers.Repo.About)
+	//http.HandleFunc("/", handlers.Repo.Home)
+	//http.HandleFunc("/about", handlers.Repo.About)
 
+	
 	fmt.Printf("Starting app on port %s \n", portNumber)
 
-	_ = http.ListenAndServe(portNumber, nil)
+	srv := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
+
+	err = srv.ListenAndServe()
+	log.Fatal(err)
+
+	//_ = http.ListenAndServe(portNumber, nil)
 }
