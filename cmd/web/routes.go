@@ -9,15 +9,9 @@ import (
 	"github.com/rumentsolov/GoLangWeb/pkg/handlers"
 )
 
-// here I create a new http.Handler that is called MAX /multiplexer/
+// routes is a new http.Handler that is called MAX /multiplexer/
 
 func routes(app *config.AppConfig) http.Handler {
-
-	/*
-		mux := pat.New()
-		mux.Get("/", http.HandlerFunc(handlers.Repo.Home))
-		mux.Get("/about", http.HandlerFunc(handlers.Repo.Home))
-	*/
 
 	mux := chi.NewRouter()
 

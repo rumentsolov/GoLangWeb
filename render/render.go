@@ -69,6 +69,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{} // exactly the same as bellow statement
 
 	// the idea is to fill all the map with the info from all FileSystem in root folder of the projects! When you rendering template that uses layout then you must have as a first thing to Parse the template you want to render and then the associated layot and parials and so on... that means that everything ending with .page , .tmpl and .html should go first. Thats why I need to check the whole file system and find those files
+	
 	//? get all the files *.page.tmpl from ./templates
 	pages, err := filepath.Glob("./templates/*.page.tmpl") // filepath is the package name
 	ErrorCheck(err)
