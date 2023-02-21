@@ -1,4 +1,4 @@
-package renderm
+package render
 
 import (
 	"fmt"
@@ -16,7 +16,7 @@ var tc = make(map[string]*template.Template)
 func RenderTemplalteM(w http.ResponseWriter, t string) {
 	var tmpl *template.Template
 	var err error
-
+	log.Println("Beggining MANUAL rendering!")
 	//* check to see if we have already the template in our cache [if we have string t in our map currently]
 	_, inMap := tc[t]
 	if !inMap {

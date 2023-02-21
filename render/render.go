@@ -6,11 +6,11 @@ import (
 
 func RenderTemplalte(w http.ResponseWriter, tmpl string) {
 
-	var auto = false
+	var auto = true
 
 	if auto {
-		RenderTemplalteA(*w, *tmpl)
+		RenderTemplalteA(w, tmpl)
 	} else {
-		RenderTemplalteM(*w, *tmpl)
+		RenderTemplalteM(w, tmpl)
 	}
 }

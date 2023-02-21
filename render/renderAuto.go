@@ -1,4 +1,4 @@
-package rendera
+package render
 
 import (
 	"bytes"
@@ -26,7 +26,7 @@ func RenderTemplalteA(w http.ResponseWriter, tmpl string) {
 	err = t.Execute(buf, nil) // this gives me clear indication of if I there is something wrong with my valye tooked from the map
 	ErrorCheck(err)
 
-	log.Println("beggining rendering")
+	log.Println("Beggining AUTO rendering!")
 	//renderer template
 	_, err = buf.WriteTo(w)
 	ErrorCheck(err)
