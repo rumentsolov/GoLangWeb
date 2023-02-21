@@ -25,13 +25,18 @@ func main() {
 	}
 
 	app.TemplateCache = tc
+	app.UseCache = false
 
+	// passing repository from handlers and back to handlers
+	repo := handlers.NewRepo(&app) // creates the repository variables
+	// I pass it back to the handlers
+	handlers.NewHandler(repo)
 
 	render.NewTemplate(&app) // this gives our application access to the the app config
 
-
-	http.HandleFunc("/", handlers.Home)
-	http.HandleFunc("/about", handlers.About)
+	// .Repo. because I have reciever from type REPO
+	http.HandleFunc("/", handlers.Repo.Home)
+	http.HandleFunc("/about", handlers.Repo.About)
 
 	fmt.Printf("Starting app on port %s \n", portNumber)
 

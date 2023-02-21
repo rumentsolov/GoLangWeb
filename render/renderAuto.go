@@ -23,10 +23,15 @@ func NewTemplate(a *config.AppConfig) {
 
 // Renders the templates using html/template
 func RenderTemplalteA(w http.ResponseWriter, tmpl string) {
-	//get the template chache from the app config
+	// if I am in development mode not ptoduction dont use template cash instead build it in every request :
+	var tc map[string]*template.Template
 
-	tc = app.TemplateCache
-
+	if app.UseCache {
+		//get the template chache from the app config
+		tc = app.TemplateCache
+	} else {
+		tc, _ = CreateTemplateCacheA()
+	}
 	/*
 		code bellow is useless due we use info from the AppConfig
 		//create template cache variable
