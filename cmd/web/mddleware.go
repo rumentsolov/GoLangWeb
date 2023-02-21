@@ -15,9 +15,7 @@ func NoSurf(next http.Handler) http.Handler {
 		Path:     "/",                  //refers to entier website for a cookie path
 		Secure:   app.InProduction,     // we are not running in SSL mode
 		SameSite: http.SameSiteLaxMode, // built in by standard
-
 	})
-
 	return csrfHandler
 }
 

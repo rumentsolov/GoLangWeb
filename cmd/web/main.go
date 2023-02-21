@@ -15,6 +15,7 @@ import (
 var portNumber = ":8080"
 var app config.AppConfig // now its avalable for middleware
 var session *scs.SessionManager // this should be transfered to middleware
+
 func main() {
 	
 	// get the template cache from app config
