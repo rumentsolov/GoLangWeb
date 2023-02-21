@@ -23,7 +23,7 @@ func NewTemplate(a *config.AppConfig) {
 
 // Renders the templates using html/template
 func RenderTemplalteA(w http.ResponseWriter, tmpl string) {
-	// if I am in development mode not ptoduction dont use template cash instead build it in every request :
+	// if I am in development mode dont use template cash instead build by requesting info from ssd it in every request
 	var tc map[string]*template.Template
 
 	if app.UseCache {
