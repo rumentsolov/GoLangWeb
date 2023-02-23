@@ -24,7 +24,9 @@ func routes(app *config.AppConfig) http.Handler {
 
 	// just a variable name
 	fileServer := http.FileServer(http.Dir("./static/")) // if doesnt show the route to the  website doesnt show the images
-	mux.Handle("/static/*", http.StripPrefix("/static", fileServer)) // I am using it
+	mux.Handle("/static/*", http.StripPrefix("/static", fileServer)) // I am using it to show where are the images
+
+	
 
 	return mux
 }
